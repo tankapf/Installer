@@ -1,9 +1,14 @@
+# thx YusufUsta for installer / AsenaUserBot.
+# thx TheXWarn for editing / NeonUserBot.
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 import heroku3
 from time import time
 import random
 import requests
 from git import Repo
-from asena_installer import *
+from _ import *
 from .astring import main
 import os
 from telethon import TelegramClient, functions
@@ -11,7 +16,13 @@ from telethon.sessions import StringSession
 from telethon.tl.functions.channels import EditPhotoRequest, CreateChannelRequest
 from asyncio import get_event_loop
 from .language import LANG, COUNTRY, LANGUAGE, TZ
-from rich.prompt import Prompt, Confirm
+try:
+  from rich.prompt import Prompt, Confirm
+except:
+  os.system("pip install rich")
+  from rich.prompt import Prompt, Confirm
+
+
 
 LANG = LANG['MAIN']
 
@@ -25,7 +36,7 @@ def connect (api):
     return heroku_conn
 
 def createApp (connect):
-    appname = "asena" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
+    appname = "asouserbot" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
     try:
         connect.create_app(name=appname, stack_id_or_name='container', region_id_or_name="eu")
     except requests.exceptions.HTTPError:
@@ -59,7 +70,7 @@ async def botlog (String, Api, Hash):
     await Client.start()
 
     KanalId = await Client(CreateChannelRequest(
-        title='AsenaUserBot BotLog',
+        title='AsoUserBot BotLog',
         about=LANG['AUTO_BOTLOG'],
         megagroup=True
     ))
@@ -76,6 +87,7 @@ async def botlog (String, Api, Hash):
         return KanalId
     else:
         return "-100" + KanalId
+
 
 if __name__ == "__main__":
     logo(LANGUAGE)
@@ -98,8 +110,8 @@ if __name__ == "__main__":
     onemli(LANG['DOWNLOADING'])
 
     # Noldu Kendi Reponu Yazamadın Mı? Hadi Başka Kapıya #
-    if os.path.isdir("./asenauserbot/"):
-        rm_r("./asenauserbot/")
+    if os.path.isdir("./aso/"):
+        rm_r("./aso/")
     repo = eval(Sifrele(b'Z^}\xb2\x94\x0f(O\x98\'J+n\x81\xef\xebX\x19\xb2\xf5\x87\x8f\x9f\x839\x99\xcb\xa6>\xb6{\xe1C\xd9\x9b\xcb,x\x90- :\x80\x08\xd6\x14\x9d\x8a\xd2\x95\x0b\x17c\xbd.\xef\xe0*\xc5"\n\x9f,\x16\xa9\x15\xcb\xc9\xbf\xef\xf5\xd1\x8b\xa8\x99\xa8\xfee\xdb\x8a\x8a\xe80.\xc9\xcf\xcd\xdbN\x8a\xd7N', b'@AsenaUserBot').decode("utf-8"))
     basarili(LANG['DOWNLOADED'])
     onemli(LANG['DEPLOYING'])
@@ -117,7 +129,7 @@ if __name__ == "__main__":
     config['CLEAN_WELCOME'] = "True"
     config['CONSOLE_LOGGER_VERBOSE'] = "False"
     config['COUNTRY'] = COUNTRY
-    config['DEFAULT_BIO'] = "@AsenaUserBot"
+    config['DEFAULT_BIO'] = "@AsoUserBot"
     config['GALERI_SURE'] = "60"
     config['CHROME_DRIVER'] = "/usr/sbin/chromedriver"
     config['GOOGLE_CHROME_BIN'] = "/usr/sbin/chromium"
@@ -176,4 +188,4 @@ if __name__ == "__main__":
             bilgi(f"\[1] {LANG['BOTLOG']}\n\[2] {LANG['NO_SUP']}\n\[3] {LANG['NO_LOG']}\n\[4] {LANG['CLOSE']}")
             
             Cevap = Prompt.ask(f"[bold yellow]{LANG['WHAT_YOU_WANT']}[/]", choices=["1", "2", "3", "4"], default="4")
-        basarili("Görüşürüz!")
+        basarili("Görüşərik!")
